@@ -1,0 +1,20 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build & Run C++ (root build)",
+            "type": "shell",
+            "command": "cd ${workspaceFolder} ; if (!(Test-Path build)) { New-Item -ItemType Directory build | Out-Null } ; g++ \"${file}\" -o build\\${fileBasenameNoExtension} ; .\\build\\${fileBasenameNoExtension}",
+            "problemMatcher": ["$gcc"],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared",
+                "focus": true
+            }
+        }
+    ]
+}
