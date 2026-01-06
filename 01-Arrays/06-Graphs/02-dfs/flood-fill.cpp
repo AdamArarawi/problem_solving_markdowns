@@ -2,55 +2,44 @@
 using namespace std;
 
 vector<vector<int>> grid;
-int color;
-int originColor;
+int newColor, originColor;
+int r, c;
 
-void dfs(int sr, int sc)
+void dfs(int x, int y)
 {
-    if (sr < 0 || sr >= grid.size() || sc < 0 || sc >= grid[0].size() || grid[sr][sc] != originColor)
-    {
+    if (x < 0 || x >= r || y < 0 || y >= c)
         return;
-    }
+    if (grid[x][y] != originColor)
+        return;
 
-    grid[sr][sc] = color;
+    grid[x][y] = newColor;
 
-    dfs(sr - 1, sc);
-    dfs(sr + 1, sc);
-    dfs(sr, sc + 1);
-    dfs(sr, sc - 1);
+    dfs(x - 1, y);
+    dfs(x + 1, y);
+    dfs(x, y - 1);
+    dfs(x, y + 1);
 }
 
 int main()
 {
-    int r = 3, c = 3, sr, sc;
-    cin >> sr >> sc >> color;
-
+    cin >> r >> c;
     grid.assign(r, vector<int>(c));
 
     for (int i = 0; i < r; i++)
-    {
         for (int j = 0; j < c; j++)
-        {
-
             cin >> grid[i][j];
-            if (i == sr && sc == j)
-            {
-                originColor = grid[i][j];
-            }
-        }
-    }
 
-    dfs(sr, sc);
-    cout << "\n";
+    int sr, sc;
+    cin >> sr >> sc >> newColor;
 
-    for (int i = 0; i < r; i++)
+    originColor = grid[sr][sc];
+    if (originColor != newColor)
+        dfs(sr, sc);
+
+    for (auto &row : grid)
     {
-        for (int j = 0; j < c; j++)
-        {
-            cout << grid[i][j] << " ";
-        }
-        cout << '\n';
+        for (int x : row)
+            cout << x << " ";
+        cout << "\n";
     }
-
-    return 0;
 }
