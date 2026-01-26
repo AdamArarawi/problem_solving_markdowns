@@ -1,0 +1,1 @@
+result.append(subsets(nums,i+1,curr))
